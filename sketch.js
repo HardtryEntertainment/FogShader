@@ -11,8 +11,8 @@ let valueLabelFar;
 const numCubes = 30;
 
 async function setup() {
-  img = await loadImage('/assets/placeholder.png')
-  font = await loadFont('/assets/Minecraft.ttf')
+  img = await loadImage('assets/placeholder.png')
+  font = await loadFont('assets/Minecraft.ttf')
   // load each shader file
   // (don't worry, we will come back to these!)
   myShader = await loadShader('shader.vert', 'shader.frag');
