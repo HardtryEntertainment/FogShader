@@ -16,7 +16,9 @@ async function setup() {
   // load each shader file
   // (don't worry, we will come back to these!)
   myShader = await loadShader('shader.vert', 'shader.frag');
-  const cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  const container = document.getElementById('canvas-container');
+  const cnv = createCanvas(container.clientWidth, container.clientHeight, WEBGL);
+  cnv.parent(container);
   // cnv.getTexture(img).setInterpolation(NEAREST, NEAREST);
   window.addEventListener('pointerdown', (e) => {
     if (e.target !== cnv.elt) draggingUI = true;
@@ -26,24 +28,30 @@ async function setup() {
 
   // Create sliders and place them at the top of the canvas.
   sliderNear = createSlider(0.0, 400.0, 10.0, 0.01);
+  sliderNear.parent(container);
   sliderNear.position(100, 10);
   sliderNear.size(180);
 
   const labelNear = createDiv('fogNear');
+  labelNear.parent(container);
   labelNear.class('slider-label');
   labelNear.position(10, 10);
   valueLabelNear = createDiv(sliderNear.value().toFixed(2));
+  valueLabelNear.parent(container);
   valueLabelNear.class('slider-label');
   valueLabelNear.position(290, 10);
 
   sliderFar = createSlider(0.0, 400.0, 200.0, 0.01);
+  sliderFar.parent(container);
   sliderFar.position(100, 40);
   sliderFar.size(180);
 
   const labelFar = createDiv('fogFar');
+  labelFar.parent(container);
   labelFar.class('slider-label');
   labelFar.position(10, 40);
   valueLabelFar = createDiv(sliderFar.value().toFixed(2));
+  valueLabelFar.parent(container);
   valueLabelFar.class('slider-label');
   valueLabelFar.position(290, 40);
 
@@ -89,5 +97,8 @@ function drawCubes() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  const container = document.getElementById('canvas-container');
+  if (container) {
+    resizeCanvas(container.clientWidth, container.clientHeight);
+  }
 }
